@@ -1,0 +1,88 @@
+# Evidencia de pruebas del backend (AdonisJS 6 + Japa)
+# Comando: node ace test --reporters=spec
+# Fecha: 2026-11-23 17:27  |  BD de pruebas: zip_game_test (MySQL 8.0.46)
+
+c[ info ] booting application to run tests...
+
+unit / GameValidatorService (tests\unit\game_validator.spec.ts)
+  √ accepts a complete valid solution (2.15ms)
+  √ rejects a path that does not start on number 1 (0.31ms)
+  √ rejects diagonal movements (0.19ms)
+  √ rejects jumps of more than one cell (0.2ms)
+  √ rejects repeated cells (0.2ms)
+  √ rejects skipping a checkpoint (0.26ms)
+  √ rejects reaching the last number before covering every cell (0.18ms)
+  √ rejects incomplete paths (0.21ms)
+  √ rejects cells outside the board (0.21ms)
+
+unit / LevelGeneratorService (tests\unit\level_generator.spec.ts)
+  √ random Hamiltonian paths visit the 36 cells once (113.97ms)
+  √ generated easy levels are solvable and respect the rules (148.99ms)
+  √ generated medium levels are solvable and respect the rules (131.98ms)
+  √ generated hard levels are solvable and respect the rules (81.04ms)
+  √ the same seed generates the same level (13.74ms)
+  √ hard levels score higher on average than easy levels (74.77ms)
+
+unit / ScoringService (tests\unit\scoring_hint_adaptive.spec.ts)
+  √ fast game without mistakes gets base + time bonus (0.24ms)
+  √ mistakes, hints and slow time reduce the score (0.13ms)
+  √ score never goes below 10% of the base (0.11ms)
+
+unit / HintService (tests\unit\scoring_hint_adaptive.spec.ts)
+  √ suggests the next cell of the solution (0.52ms)
+  √ rejects invalid paths (0.14ms)
+  √ empty path hints the cell with number 1 (0.16ms)
+
+unit / AdaptiveDifficultyService (tests\unit\scoring_hint_adaptive.spec.ts)
+  √ increases after two excellent games (0.32ms)
+  √ decreases after two poor games (0.12ms)
+  √ keeps difficulty with mixed results (0.14ms)
+  √ never goes above hard (0.29ms)
+[ success ] Dropped tables successfully
+[ info ] Upgrading migrations version from "1" to "2"
+❯ migrating database/migrations/1763600000001_create_users_table
+❯ migrated database/migrations/1763600000001_create_users_table
+❯ migrating database/migrations/1763600000002_create_access_tokens_table
+❯ migrated database/migrations/1763600000002_create_access_tokens_table
+❯ migrating database/migrations/1763600000003_create_levels_table
+❯ migrated database/migrations/1763600000003_create_levels_table
+❯ migrating database/migrations/1763600000004_create_game_sessions_table
+❯ migrated database/migrations/1763600000004_create_game_sessions_table
+❯ migrating database/migrations/1763600000005_create_game_moves_table
+❯ migrated database/migrations/1763600000005_create_game_moves_table
+❯ migrating database/migrations/1763600000006_create_scores_table
+❯ migrated database/migrations/1763600000006_create_scores_table
+
+Migrated in 1.31 s
+
+functional / Auth (tests\functional\api.spec.ts)
+  √ registers a player and returns a token (187.47ms)
+  √ returns 422 for invalid registration data (12.37ms)
+  √ logs in with valid credentials and rejects bad ones (248.6ms)
+  √ protected routes require a token (13.5ms)
+
+functional / Levels (tests\functional\api.spec.ts)
+  √ lists levels without exposing the solution (138.54ms)
+  √ returns 404 for a missing level (79.56ms)
+[23:27:25.095] WARN (18504): Row not found
+    request_id: "n16buv4ac5jfcxp5ywlopuc9"
+    x-request-id: "n16buv4ac5jfcxp5ywlopuc9"
+  √ generates and stores a new level (99.92ms)
+
+functional / Games (tests\functional\api.spec.ts)
+  √ full flow: start, hint, finish with a valid solution (261.59ms)
+  √ rejects an invalid solution with 422 (113.39ms)
+[23:27:25.696] WARN (18504): This game session is already finished
+    request_id: "fa76p3uqrffndpoehu6ov8l2"
+    x-request-id: "fa76p3uqrffndpoehu6ov8l2"
+  √ prevents finishing the same game twice (121.93ms)
+[23:27:25.853] WARN (18504): Game session not found
+    request_id: "kssur62hc4fv501v19joj9nx"
+    x-request-id: "kssur62hc4fv501v19joj9nx"
+  √ a player cannot finish another player game (158.24ms)
+  √ history and leaderboard reflect persisted results (171.52ms)
+
+ PASSED 
+
+Tests  37 passed (37)
+ Time  4s

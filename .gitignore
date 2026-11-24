@@ -1,0 +1,30 @@
+# ===== Secretos: NUNCA subir =====
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# ===== Node / AdonisJS =====
+node_modules/
+build/
+tmp/
+coverage/
+*.log
+
+# ===== Flutter / Dart =====
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+
+# ===== IDE / SO =====
+.idea/
+*.iml
+.DS_Store
+Thumbs.db
+
+# ===== Material del profesor (se queda local) =====
+practica flutter.md
