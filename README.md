@@ -114,10 +114,7 @@ Abre **dos terminales** con MySQL encendido:
 | 1. Backend | `cd zip_game_api` y luego `node ace serve --hmr` → `http://localhost:3333` |
 | 2. Frontend | `cd zip_game` y luego `flutter run -d chrome` |
 
-Por si falla lo de arriba para el frontend.
-$env:Path = [Environment]::GetEnvironmentVariable('Path','Machine') + ';' + [Environment]::GetEnvironmentVariable('Path','User')
-cd "E:\Proyectos de la Uni\Practice flutter\zip_game"
-flutter run -d chrome
+Los comandos de la tabla parten de la raíz del repositorio. Si PowerShell no reconoce `flutter`, agrega la carpeta `bin` de tu instalación de Flutter al `PATH` (ver [Problemas comunes](#-problemas-comunes)) y vuelve a ejecutar el comando de la terminal 2.
 
 **Usuario de demostración** (lo crea el seeder): `demo@zipgame.test` / `demo12345`.
 
