@@ -1,4 +1,5 @@
-# 🧩 ZIP Game
+#  ZIP Game
+# | Jonathan Rios | Axel Sandoval | Edmundo Cardoza | Miguel Ramirez |
 
 Juego de lógica **ZIP** para dispositivos móviles y web. Práctica I de *Desarrollo para Dispositivos Inteligentes*, UTD, grupo 10°A BIS.
 
