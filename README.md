@@ -4,7 +4,6 @@
 Juego de lógica **ZIP** para dispositivos móviles y web. Práctica I de *Desarrollo para Dispositivos Inteligentes*, UTD, grupo 10°A BIS.
 
 | Parte | Tecnología | Carpeta |
-|---|---|---|
 | 📱 Frontend | Flutter 3.50 · Dart 3.14 · `material_ui` | [`zip_game/`](zip_game/) |
 | ⚙️ Backend (API REST) | AdonisJS 6 · TypeScript · VineJS · Lucid ORM | [`zip_game_api/`](zip_game_api/) |
 | 🗄️ Base de datos | MySQL 8.0 | `zip_game` (y `zip_game_test` para pruebas) |
@@ -14,7 +13,6 @@ flowchart LR
     A["📱 Flutter<br/>zip_game"] -- "HTTP + JSON<br/>Bearer token" --> B["⚙️ AdonisJS 6<br/>zip_game_api"]
     B -- "Lucid ORM" --> C[("🗄️ MySQL 8<br/>zip_game")]
 ```
-
 ---
 
 ## 📑 Contenido
@@ -50,7 +48,6 @@ El **servidor vuelve a validar** la solución completa antes de dar puntos. Nunc
 ## 🧰 Requisitos
 
 | Herramienta | Versión probada | Verificar |
-|---|---|---|
 | Node.js | 20.6 o superior (probado con 24.20) | `node -v` |
 | MySQL Server | 8.0 | servicio `MySQL80` |
 | Flutter | 3.50 (estable) | `flutter --version` |
@@ -87,7 +84,6 @@ node ace db:seed                 # 10 niveles de demostración + usuario demo
 Variables de `.env` (ver [`.env.example`](zip_game_api/.env.example)):
 
 | Variable | Ejemplo | Descripción |
-|---|---|---|
 | `PORT` / `HOST` | `3333` / `localhost` | Dirección de la API |
 | `APP_KEY` | *(generada)* | Llave de la app (`node ace generate:key`) |
 | `DB_HOST` / `DB_PORT` | `127.0.0.1` / `3306` | Servidor MySQL |
@@ -111,7 +107,6 @@ flutter pub get
 Abre **dos terminales** con MySQL en ejecución:
 
 | Terminal | Comandos |
-|---|---|
 | 1. Backend | `cd zip_game_api` y luego `node ace serve --hmr` → `http://localhost:3333` |
 | 2. Frontend | `cd zip_game` y luego `flutter run -d chrome` |
 
@@ -133,7 +128,6 @@ Para reiniciar la base con datos limpios: `node ace migration:fresh --seed`.
 ## 🧪 Pruebas
 
 | Tipo | Qué prueba | Comando | Resultado |
-|---|---|---|---|
 | ⚙️ Backend (Japa) | Unitarias (validador, generador, puntaje, pistas, dificultad adaptativa) y funcionales (auth, niveles, partidas, soluciones válidas e inválidas, doble finalización, ranking, perfil) | `cd zip_game_api` y luego `node ace test` | 37 aprobadas · [evidencia](docs/evidencias/evidencias_backend.txt) |
 | 📱 Frontend | Reglas del juego, controlador (mover, deshacer, reiniciar, pista, completar) y widgets del tablero | `cd zip_game` y luego `flutter test` | 19 aprobadas · [evidencia](docs/evidencias/evidencias_flutter.txt) |
 | 🔗 Integración | Flutter se registra, obtiene un nivel, inicia partida, arma la solución con pistas del servidor, la envía y recibe el puntaje | `flutter test test/integration --dart-define=INTEGRATION=true` (con el backend encendido) | 1 aprobada · [evidencia](docs/evidencias/evidencias_integracion.txt) |
@@ -147,7 +141,6 @@ Las pruebas funcionales del backend usan la base **`zip_game_test`** (archivo `.
 Base: `http://localhost:3333/api` · Formato: JSON · Autenticación: header `Authorization: Bearer <token>`.
 
 | Método | Ruta | Auth | Body / Query | Respuesta | Errores |
-|:---:|---|:---:|---|---|---|
 | `POST` | `/auth/register` | — | `{ username, email, password }` | `201 { user, token }` | `422` |
 | `POST` | `/auth/login` | — | `{ email, password }` | `200 { user, token }` | `400`, `422` |
 | `POST` | `/auth/logout` | ✅ | — | `200 { message }` (revoca el token) | `401` |
@@ -165,7 +158,6 @@ Base: `http://localhost:3333/api` · Formato: JSON · Autenticación: header `Au
 **Códigos de estado**
 
 | Código | Cuándo |
-|:---:|---|
 | `200` / `201` | Éxito / recurso creado |
 | `400` | Credenciales inválidas en login |
 | `401` | Falta el token o es inválido |
@@ -316,7 +308,6 @@ erDiagram
 ### Puntaje (sólo en el servidor), en [`scoring_service.ts`](zip_game_api/app/services/scoring_service.ts)
 
 | Concepto | Fácil | Media | Difícil |
-|---|:---:|:---:|:---:|
 | Base | 1000 | 2000 | 3000 |
 | Tiempo objetivo | 120 s | 180 s | 300 s |
 
@@ -342,7 +333,6 @@ El servidor valida el camino actual. Si es correcto, indica la **siguiente celda
 ### Dificultad adaptativa, en [`adaptive_difficulty_service.ts`](zip_game_api/app/services/adaptive_difficulty_service.ts)
 
 | Calificación de la partida | Condición |
-|---|---|
 | Excelente | tiempo ≤ objetivo, 0 pistas y ≤ 2 errores |
 | Deficiente | tiempo > 2× objetivo, o ≥ 3 pistas, o ≥ 10 errores |
 | Normal | cualquier otro caso |
@@ -371,7 +361,6 @@ zip_game/lib/
 ```
 
 | Capa | Contiene | No contiene |
-|---|---|---|
 | Presentation | Páginas, widgets y controladores `ChangeNotifier` | HTTP directo, reglas del juego |
 | Domain | Entidades, `ZipRules`, repositorios abstractos | Widgets, JSON, HTTP |
 | Data | Modelos JSON, datasources HTTP, repositorios concretos | Widgets |
@@ -401,7 +390,6 @@ flowchart LR
 ## 🩺 Problemas comunes
 
 | Síntoma | Solución |
-|---|---|
 | `ER_ACCESS_DENIED_ERROR` | Revisar `DB_USER`, `DB_PASSWORD` y `DB_PORT` en `.env` |
 | `ER_BAD_DB_ERROR` | Ejecutar el script `01_create_database.sql` |
 | Error CORS en Chrome | Verificar que el backend corre en modo desarrollo (`NODE_ENV=development`) |
