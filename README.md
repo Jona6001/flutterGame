@@ -108,7 +108,7 @@ flutter pub get
 
 ## ▶️ Ejecución
 
-Abre **dos terminales** con MySQL encendido:
+Abre **dos terminales** con MySQL en ejecución:
 
 | Terminal | Comandos |
 |---|---|
